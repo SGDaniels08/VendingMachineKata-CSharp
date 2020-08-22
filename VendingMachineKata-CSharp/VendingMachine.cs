@@ -25,5 +25,14 @@ namespace VendingMachineClasses
 			this.AmountInserted = amountInserted;
 			this.Inventory = inventory;
 		}
+
+		// Other methods
+		public void TakeCoin(Coin insertedCoin)
+        {
+			if (insertedCoin.CoinType == "quarter")
+			{
+				AmountInserted += 0.25m;
+			}
+        }
 	}
 }

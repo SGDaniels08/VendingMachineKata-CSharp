@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using VendingMachineClasses;
 
 namespace VendingMachineKata_CSharp
@@ -25,6 +26,31 @@ namespace VendingMachineKata_CSharp
 
             // Assertion
             Assert.AreEqual(0.05m, underTest.AmountInserted);
+        }
+
+        [TestMethod]
+        public void QuarterHasCoinTypeQuarter()
+        {
+            // Arrangment and Activation
+            Coin testQuarter = new Coin("quarter");
+
+            // Assertion
+            Assert.AreEqual("quarter", testQuarter.CoinType);
+        }
+
+        [TestMethod]
+        public void VendingMachineAcceptsQuarters()
+        {
+            // Arrangement
+            VendingMachine underTest = new VendingMachine();
+            Coin quarter = new Coin("quarter");
+            Console.WriteLine(quarter.CoinType);
+
+            // Activation
+            underTest.TakeCoin(quarter);
+
+            // Assertion
+            Assert.AreEqual(0.25m, underTest.AmountInserted);
         }
     }
 }

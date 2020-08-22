@@ -19,7 +19,7 @@ namespace VendingMachineClasses
 
 		public Coin(string coinType)
         {
-			this.coinType = coinType;
+			this.CoinType = coinType;
         }
 	}
 
