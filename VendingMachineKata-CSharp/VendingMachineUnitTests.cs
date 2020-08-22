@@ -207,7 +207,53 @@ namespace VendingMachineKata_CSharp
             Assert.AreEqual("loon", testMachine.CoinReturn[1].CoinType);
         }
 
-        
+        [TestMethod]
+        public void NewProductHasCorrectType()
+        {
+            // Arrangement and Activation
+            Product testCola = new Product("cola");
 
+            // Assertion
+            Assert.AreEqual("cola", testCola.ProductType);
+        }
+
+        [TestMethod]
+        public void SelectColaGetsCola()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(1.0m);
+
+            // Activation
+            Product received = testMachine.SelectProduct(1);
+
+            // Assertion
+            Assert.AreEqual("cola", received.ProductType);
+        }
+
+        [TestMethod]
+        public void SelectChipsGetsChips()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(1.0m);
+
+            // Activation
+            Product received = testMachine.SelectProduct(2);
+
+            // Assertion
+            Assert.AreEqual("chips", received.ProductType);
+        }
+
+        [TestMethod]
+        public void SelectCandyGetsCandy()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(1.0m);
+
+            // Activation
+            Product received = testMachine.SelectProduct(3);
+
+            // Assertion
+            Assert.AreEqual("candy", received.ProductType);
+        }
     }
 }

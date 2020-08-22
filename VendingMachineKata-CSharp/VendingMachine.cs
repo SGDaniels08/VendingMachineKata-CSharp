@@ -69,5 +69,13 @@ namespace VendingMachineClasses
 				return "INSERT COIN";
             }
         }
+
+		public Product SelectProduct(int choice)
+        {
+			if (choice == 1) { return new Product("cola"); }
+			else if (choice == 2) { return new Product("chips"); }
+			else if (choice == 3) { return new Product("candy"); }
+			else { return null; }
+        }
 	}
 }
