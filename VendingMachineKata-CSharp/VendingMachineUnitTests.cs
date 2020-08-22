@@ -39,18 +39,91 @@ namespace VendingMachineKata_CSharp
         }
 
         [TestMethod]
+        public void DimeHasCoinTypeDime()
+        {
+            // Arrangement and Activation
+            Coin testDime = new Coin("dime");
+
+            // Assertion
+            Assert.AreEqual("dime", testDime.CoinType);
+        }
+
+        [TestMethod]
+        public void NickenHasCoinTypeNickel()
+        {
+            // Arrangement and Activation
+            Coin testNickel = new Coin("nickel");
+
+            // Assertion
+            Assert.AreEqual("nickel", testNickel.CoinType);
+        }
+
+        [TestMethod]
+        public void PennyHasCoinTypePenny()
+        {
+            // Arrangement and Activation
+            Coin testPenny = new Coin("penny");
+
+            // Assertion
+            Assert.AreEqual("penny", testPenny.CoinType);
+        }
+
+        [TestMethod]
         public void VendingMachineAcceptsQuarters()
         {
             // Arrangement
             VendingMachine underTest = new VendingMachine();
             Coin quarter = new Coin("quarter");
-            Console.WriteLine(quarter.CoinType);
 
             // Activation
             underTest.TakeCoin(quarter);
 
             // Assertion
             Assert.AreEqual(0.25m, underTest.AmountInserted);
+        }
+
+        [TestMethod]
+        public void VendingMachineAcceptsDimes()
+        {
+            // Arrangement
+            VendingMachine underTest = new VendingMachine();
+            Coin dime = new Coin("dime");
+
+            // Activation
+            underTest.TakeCoin(dime);
+
+            // Assertion
+            Assert.AreEqual(0.10m, underTest.AmountInserted);
+
+        }
+
+        [TestMethod]
+        public void VendingMachineAcceptsNickels()
+        {
+            // Arrangement
+            VendingMachine underTest = new VendingMachine();
+            Coin nickel = new Coin("nickel");
+
+            // Activation
+            underTest.TakeCoin(nickel);
+
+            // Assertion
+            Assert.AreEqual(0.05m, underTest.AmountInserted);
+
+        }
+
+        [TestMethod]
+        public void VendingMachineRejectsPennies()
+        {
+            // Arrangement
+            VendingMachine underTest = new VendingMachine(0.15m);
+            Coin penny = new Coin("penny");
+
+            // Activation
+            underTest.TakeCoin(penny);
+
+            // Assertion
+            Assert.AreEqual(0.15m, underTest.AmountInserted);
         }
     }
 }

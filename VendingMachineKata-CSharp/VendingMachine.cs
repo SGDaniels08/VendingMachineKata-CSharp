@@ -33,6 +33,14 @@ namespace VendingMachineClasses
 			{
 				AmountInserted += 0.25m;
 			}
+			else if (insertedCoin.CoinType == "dime")
+            {
+				AmountInserted += 0.10m;
+            }
+			else if (insertedCoin.CoinType == "nickel")
+            {
+				AmountInserted += 0.05m;
+            }
         }
 	}
 }
