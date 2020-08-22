@@ -11,6 +11,9 @@ namespace VendingMachineClasses
 		private decimal valueInMachine;
 		public decimal ValueInMachine { get; private set; }
 
+		private List<Coin> coinReturn;
+		public List<Coin> CoinReturn { get; private set; }
+
 		private List<Product> inventory;
 		public List<Product> Inventory { get; private set; }
 
@@ -18,14 +21,19 @@ namespace VendingMachineClasses
 		public VendingMachine() 
 		{
 			ValueInMachine = 0.0m;
+			this.CoinReturn = new List<Coin>();
+			this.Inventory = new List<Product>();
 		}
-		public VendingMachine(decimal amountInserted)
+		public VendingMachine(decimal valueInMachine)
         {
-			this.ValueInMachine = amountInserted;
+			this.ValueInMachine = valueInMachine;
+			this.CoinReturn = new List<Coin>();
+			this.Inventory = new List<Product>();
         }
-		public VendingMachine(decimal amountInserted, List<Product> inventory)
+		public VendingMachine(decimal amountInserted, List<Coin> coinReturn,  List<Product> inventory)
 		{
 			this.ValueInMachine = amountInserted;
+			this.CoinReturn = coinReturn;
 			this.Inventory = inventory;
 		}
 
@@ -37,20 +45,24 @@ namespace VendingMachineClasses
 				ValueInMachine += 0.25m;
 			}
 			else if (insertedCoin.CoinType == "dime")
-            {
+			{
 				ValueInMachine += 0.10m;
-            }
+			}
 			else if (insertedCoin.CoinType == "nickel")
-            {
+			{
 				ValueInMachine += 0.05m;
-            }
+			}
+			else 
+			{
+				CoinReturn.Add(insertedCoin);
+			}
         }
 
 		public string DisplayStatus()
         {
-			if (valueInMachine > 0.0m)
+			if (ValueInMachine > 0.0m)
             {
-				return $"{ValueInMachine}";
+				return $"${ValueInMachine}";
             }
 			else
             {

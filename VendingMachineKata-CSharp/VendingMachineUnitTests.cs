@@ -160,8 +160,54 @@ namespace VendingMachineKata_CSharp
             string result = testMachine.DisplayStatus();
 
             // Assertion
-            Assert.AreEqual("0.35", result);
+            Assert.AreEqual("$0.35", result);
         }
+
+        [TestMethod]
+        public void AcceptedCoinDoesNotEnterCoinReturn()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine();
+            Coin testQuarter = new Coin("quarter");
+
+            // Activation
+            testMachine.TakeCoin(testQuarter);
+
+            // Assertion
+            Assert.AreEqual(0, testMachine.CoinReturn.Count);
+        }
+
+        [TestMethod]
+        public void RejectedCoinGoesIntoCoinReturn()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine();
+            Coin testPenny = new Coin("penny");
+
+            // Activation
+            testMachine.TakeCoin(testPenny);
+
+            // Assertion
+            Assert.AreEqual(1, testMachine.CoinReturn.Count);
+        }
+
+        [TestMethod]
+        public void RejectedCoinInCoinReturnIsCorrectType()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine();
+            Coin testPenny = new Coin("penny");
+            Coin testLoon = new Coin("loon");
+
+            // Activation
+            testMachine.TakeCoin(testPenny);
+            testMachine.TakeCoin(testLoon);
+
+            // Assertion
+            Assert.AreEqual("loon", testMachine.CoinReturn[1].CoinType);
+        }
+
+        
 
     }
 }
