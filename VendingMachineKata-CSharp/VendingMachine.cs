@@ -8,21 +8,24 @@ namespace VendingMachineClasses
 	public class VendingMachine
 	{
 		// Instance Variables and Properties
-		private decimal amountInserted;
-		public decimal AmountInserted { get; private set; }
+		private decimal valueInMachine;
+		public decimal ValueInMachine { get; private set; }
 
 		private List<Product> inventory;
 		public List<Product> Inventory { get; private set; }
 
 		// Constructors
-		public VendingMachine() { }
+		public VendingMachine() 
+		{
+			ValueInMachine = 0.0m;
+		}
 		public VendingMachine(decimal amountInserted)
         {
-			this.AmountInserted = amountInserted;
+			this.ValueInMachine = amountInserted;
         }
 		public VendingMachine(decimal amountInserted, List<Product> inventory)
 		{
-			this.AmountInserted = amountInserted;
+			this.ValueInMachine = amountInserted;
 			this.Inventory = inventory;
 		}
 
@@ -31,15 +34,27 @@ namespace VendingMachineClasses
         {
 			if (insertedCoin.CoinType == "quarter")
 			{
-				AmountInserted += 0.25m;
+				ValueInMachine += 0.25m;
 			}
 			else if (insertedCoin.CoinType == "dime")
             {
-				AmountInserted += 0.10m;
+				ValueInMachine += 0.10m;
             }
 			else if (insertedCoin.CoinType == "nickel")
             {
-				AmountInserted += 0.05m;
+				ValueInMachine += 0.05m;
+            }
+        }
+
+		public string DisplayStatus()
+        {
+			if (valueInMachine > 0.0m)
+            {
+				return $"{ValueInMachine}";
+            }
+			else
+            {
+				return "INSERT COIN";
             }
         }
 	}

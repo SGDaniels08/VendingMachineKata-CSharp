@@ -25,7 +25,7 @@ namespace VendingMachineKata_CSharp
             VendingMachine underTest = new VendingMachine(0.05m);
 
             // Assertion
-            Assert.AreEqual(0.05m, underTest.AmountInserted);
+            Assert.AreEqual(0.05m, underTest.ValueInMachine);
         }
 
         [TestMethod]
@@ -79,7 +79,7 @@ namespace VendingMachineKata_CSharp
             underTest.TakeCoin(quarter);
 
             // Assertion
-            Assert.AreEqual(0.25m, underTest.AmountInserted);
+            Assert.AreEqual(0.25m, underTest.ValueInMachine);
         }
 
         [TestMethod]
@@ -93,7 +93,7 @@ namespace VendingMachineKata_CSharp
             underTest.TakeCoin(dime);
 
             // Assertion
-            Assert.AreEqual(0.10m, underTest.AmountInserted);
+            Assert.AreEqual(0.10m, underTest.ValueInMachine);
 
         }
 
@@ -108,7 +108,7 @@ namespace VendingMachineKata_CSharp
             underTest.TakeCoin(nickel);
 
             // Assertion
-            Assert.AreEqual(0.05m, underTest.AmountInserted);
+            Assert.AreEqual(0.05m, underTest.ValueInMachine);
 
         }
 
@@ -123,7 +123,45 @@ namespace VendingMachineKata_CSharp
             underTest.TakeCoin(penny);
 
             // Assertion
-            Assert.AreEqual(0.15m, underTest.AmountInserted);
+            Assert.AreEqual(0.15m, underTest.ValueInMachine);
         }
+
+        [TestMethod]
+        public void EmptyConstructorSetsAmountToZero()
+        {
+            // Arrangement and Activation
+            VendingMachine testMachine = new VendingMachine();
+
+            // Assertion
+            Assert.AreEqual(0.0m, testMachine.ValueInMachine);
+
+        }
+
+        [TestMethod]
+        public void VendingMachineDisplaysINSERTCOINIfNoMoney()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine();
+
+            // Activation
+            string result = testMachine.DisplayStatus();
+
+            // Assertion
+            Assert.AreEqual("INSERT COIN", result);
+        }
+
+        [TestMethod]
+        public void VendingMachineDisplaysAmountIfMoneyInMachine()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(0.35m);
+
+            // Activation
+            string result = testMachine.DisplayStatus();
+
+            // Assertion
+            Assert.AreEqual("0.35", result);
+        }
+
     }
 }
