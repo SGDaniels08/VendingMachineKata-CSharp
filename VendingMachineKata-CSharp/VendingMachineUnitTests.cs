@@ -222,9 +222,10 @@ namespace VendingMachineKata_CSharp
         {
             // Arrangement
             VendingMachine testMachine = new VendingMachine(1.0m);
+            string message;
 
             // Activation
-            Product received = testMachine.SelectProduct(1);
+            Product received = testMachine.SelectProduct(1, out message);
 
             // Assertion
             Assert.AreEqual("cola", received.ProductType);
@@ -235,9 +236,10 @@ namespace VendingMachineKata_CSharp
         {
             // Arrangement
             VendingMachine testMachine = new VendingMachine(1.0m);
+            string message;
 
             // Activation
-            Product received = testMachine.SelectProduct(2);
+            Product received = testMachine.SelectProduct(2, out message);
 
             // Assertion
             Assert.AreEqual("chips", received.ProductType);
@@ -248,12 +250,142 @@ namespace VendingMachineKata_CSharp
         {
             // Arrangement
             VendingMachine testMachine = new VendingMachine(1.0m);
+            string message;
 
             // Activation
-            Product received = testMachine.SelectProduct(3);
+            Product received = testMachine.SelectProduct(3, out message);
 
             // Assertion
             Assert.AreEqual("candy", received.ProductType);
+        }
+
+        [TestMethod]
+        public void SelectColaInsufficientFundsReturnsNull()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine();
+            Product received;
+            string message;
+
+            // Activation
+            received = testMachine.SelectProduct(1, out message);
+
+            // Assertion
+            Assert.AreEqual(null, received);
+        }
+
+        [TestMethod]
+        public void SelectChipsInsufficientFundsReturnsNull()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine();
+            Product received;
+            string message;
+
+            // Activation
+            received = testMachine.SelectProduct(2, out message);
+
+            // Assertion
+            Assert.AreEqual(null, received);
+        }
+
+        [TestMethod]
+        public void SelectCandyInsufficientFundsReturnsNull()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine();
+            Product received;
+            string message;
+
+            // Activation
+            received = testMachine.SelectProduct(3, out message);
+
+            // Assertion
+            Assert.AreEqual(null, received);
+        }
+
+        [TestMethod]
+        public void BuyingColaGivesMessageTHANKYOU() 
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(1.0m);
+            string message;
+
+            // Activation
+            Product received = testMachine.SelectProduct(1, out message);
+
+            // Assertion
+            Assert.AreEqual("THANK YOU", message);
+        }
+
+        [TestMethod] 
+        public void FailingToBuyColaGivesMessageINSUFFICIENTFUNDS() 
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(0.35m);
+            string message;
+
+            // Activation
+            Product received = testMachine.SelectProduct(1, out message);
+
+            // Assertion
+            Assert.AreEqual("INSUFFICIENT FUNDS", message);
+        }
+
+        [TestMethod]
+        public void BuyingChipsGivesMessageTHANKYOU()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(1.0m);
+            string message;
+
+            // Activation
+            Product received = testMachine.SelectProduct(2, out message);
+
+            // Assertion
+            Assert.AreEqual("THANK YOU", message);
+        }
+
+        [TestMethod]
+        public void FailingToBuyChipsGivesMessageINSUFFICIENTFUNDS()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(0.35m);
+            string message;
+
+            // Activation
+            Product received = testMachine.SelectProduct(2, out message);
+
+            // Assertion
+            Assert.AreEqual("INSUFFICIENT FUNDS", message);
+        }
+
+        [TestMethod]
+        public void BuyingCandyGivesMessageTHANKYOU()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(1.0m);
+            string message;
+
+            // Activation
+            Product received = testMachine.SelectProduct(3, out message);
+
+            // Assertion
+            Assert.AreEqual("THANK YOU", message);
+        }
+
+        [TestMethod]
+        public void FailingToBuyCandyGivesMessageINSUFFICIENTFUNDS()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(0.35m);
+            string message;
+
+            // Activation
+            Product received = testMachine.SelectProduct(3, out message);
+
+            // Assertion
+            Assert.AreEqual("INSUFFICIENT FUNDS", message);
         }
     }
 }

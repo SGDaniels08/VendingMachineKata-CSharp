@@ -17,6 +17,13 @@ namespace VendingMachineClasses
 		private List<Product> inventory;
 		public List<Product> Inventory { get; private set; }
 
+		private List<Product> purchasedItems;
+		public List<Product> PurchasedItems { get; private set; }
+
+		private decimal colaValue = 1.0m;
+		private decimal chipsValue = 0.50m;
+		private decimal candyValue = 0.65m;
+
 		// Constructors
 		public VendingMachine() 
 		{
@@ -70,12 +77,28 @@ namespace VendingMachineClasses
             }
         }
 
-		public Product SelectProduct(int choice)
+		public Product SelectProduct(int choice, out string message)
         {
-			if (choice == 1) { return new Product("cola"); }
-			else if (choice == 2) { return new Product("chips"); }
-			else if (choice == 3) { return new Product("candy"); }
-			else { return null; }
+			if (choice == 1 && ValueInMachine >= colaValue) 
+			{
+				message = "THANK YOU";
+				return new Product("cola");
+			}
+			else if (choice == 2 && ValueInMachine >= chipsValue)
+			{
+				message = "THANK YOU";
+				return new Product("chips");
+			}
+			else if (choice == 3 && ValueInMachine >= candyValue)
+			{
+				message = "THANK YOU";
+				return new Product("candy");
+			}
+			else 
+			{
+				message = "INSUFFICIENT FUNDS";
+				return null;
+			}
         }
 	}
 }
