@@ -81,16 +81,22 @@ namespace VendingMachineClasses
         {
 			if (choice == 1 && ValueInMachine >= colaValue) 
 			{
+				ValueInMachine -= colaValue;
+				MakeChange();
 				message = "THANK YOU";
 				return new Product("cola");
 			}
 			else if (choice == 2 && ValueInMachine >= chipsValue)
 			{
+				ValueInMachine -= chipsValue;
+				MakeChange();
 				message = "THANK YOU";
 				return new Product("chips");
 			}
 			else if (choice == 3 && ValueInMachine >= candyValue)
 			{
+				ValueInMachine -= candyValue;
+				MakeChange();
 				message = "THANK YOU";
 				return new Product("candy");
 			}
@@ -99,6 +105,35 @@ namespace VendingMachineClasses
 				message = "INSUFFICIENT FUNDS";
 				return null;
 			}
+        }
+
+		public void MakeChange()
+        {
+			Coin quarter = new Coin("quarter");
+			Coin dime = new Coin("dime");
+			Coin nickel = new Coin("nickel");
+			decimal quarterValue = 0.25m;
+			decimal dimeValue = 0.10m;
+			decimal nickelValue = 0.05m;
+
+			while (ValueInMachine > 0.0m)
+            {
+				if (ValueInMachine >= quarterValue) 
+				{
+					CoinReturn.Add(quarter);
+					ValueInMachine -= quarterValue;
+				}
+				else if (ValueInMachine >= dimeValue)
+                {
+					CoinReturn.Add(dime);
+					ValueInMachine -= dimeValue;
+                }
+				else if (ValueInMachine >= nickelValue)
+                {
+					CoinReturn.Add(nickel);
+					ValueInMachine -= nickelValue;
+                }
+            }
         }
 	}
 }

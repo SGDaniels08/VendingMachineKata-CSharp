@@ -305,7 +305,7 @@ namespace VendingMachineKata_CSharp
         }
 
         [TestMethod]
-        public void BuyingColaGivesMessageTHANKYOU() 
+        public void BuyingColaGivesMessageTHANKYOU()
         {
             // Arrangement
             VendingMachine testMachine = new VendingMachine(1.0m);
@@ -318,8 +318,8 @@ namespace VendingMachineKata_CSharp
             Assert.AreEqual("THANK YOU", message);
         }
 
-        [TestMethod] 
-        public void FailingToBuyColaGivesMessageINSUFFICIENTFUNDS() 
+        [TestMethod]
+        public void FailingToBuyColaGivesMessageINSUFFICIENTFUNDS()
         {
             // Arrangement
             VendingMachine testMachine = new VendingMachine(0.35m);
@@ -386,6 +386,88 @@ namespace VendingMachineKata_CSharp
 
             // Assertion
             Assert.AreEqual("INSUFFICIENT FUNDS", message);
+        }
+
+        [TestMethod]
+        public void SuccessfullBuyingAProductZeroesOutValueInMachine()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(1.0m);
+            string message;
+
+            // Activation
+            Product result = testMachine.SelectProduct(2, out message);
+
+            // Assertion
+            Assert.AreEqual(0.0m, testMachine.ValueInMachine);
+        }
+
+        [TestMethod]
+        public void SuccessfullBuyingAProductGivesDisplayINSERTCOIN()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(1.0m);
+            string message;
+
+            // Activation
+            Product result = testMachine.SelectProduct(3, out message);
+
+            // Assertion
+            Assert.AreEqual("INSERT COIN", testMachine.DisplayStatus());
+        }
+
+
+        [TestMethod]
+        public void FailingToBuyAProductGivesDisplayValueInMachine()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(0.35m);
+            string message;
+
+            // Activation
+            Product result = testMachine.SelectProduct(3, out message);
+
+            // Assertion
+            Assert.AreEqual("$0.35", testMachine.DisplayStatus());
+        }
+
+        [TestMethod]
+        public void MakeChangeMethodZeroesOutValueInMachine() 
+        {			
+            // Arrangement
+			VendingMachine testMachine = new VendingMachine(0.15m);
+
+            // Activation
+            testMachine.MakeChange();
+
+            // Assertion
+            Assert.AreEqual(0.0m, testMachine.ValueInMachine);
+        }
+
+        [TestMethod]
+        public void MakeChangeMethodReturnsCorrectCoins_1()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(0.15m);
+
+            // Activation
+            testMachine.MakeChange();
+
+            // Assertion
+            Assert.AreEqual("nickel", testMachine.CoinReturn[1].CoinType);
+        }
+
+        [TestMethod]
+        public void MakeChangeMethodReturnsCorrectCoins_2()
+        {
+            // Arrangement
+            VendingMachine testMachine = new VendingMachine(0.85m);
+
+            // Activation
+            testMachine.MakeChange();
+
+            // Assertion
+            Assert.AreEqual("quarter", testMachine.CoinReturn[2].CoinType);
         }
     }
 }
